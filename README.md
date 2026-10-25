@@ -1,59 +1,104 @@
-# PlanMejora
+# Plan de mejora Angular: Módulo de Productos
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.27.
+Aplicación web en Angular con arquitectura modular (NgModules, sin componentes standalone) que consume la API pública [DummyJSON](https://dummyjson.com) e implementa autenticación con token JWT.
 
-## Development server
+## Datos del aprendiz
 
-To start a local development server, run:
+- **Aprendiz:** Johan Sebastián Jiménez García
+- **Ficha:** 3231651
+- **Centro de formación:** SENA
+- **Recurso asignado:** Productos (`/products`)
 
-```bash
-ng serve
-```
+## Tecnologías
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- Angular 19 (NgModules, `standalone: false`)
+- TypeScript
+- SCSS (estilos propios, sin librerías externas)
+- RxJS y HttpClient
+- Formularios reactivos
 
-## Code scaffolding
+## Requisitos previos
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- Node.js 20.19 o superior (o 22.12 o superior)
+- npm
+- Git
 
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
+Verifica las versiones con:
 
 ```bash
-ng build
+node -v
+npm -v
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## Instrucciones de ejecución
 
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+1. Clonar el repositorio:
 
 ```bash
-ng test
+git clone https://github.com/jhoansebastianj23-ops/plan-mejora-angular-johan-jimenez.git
 ```
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
+2. Entrar a la carpeta del proyecto:
 
 ```bash
-ng e2e
+cd plan-mejora-angular-johan-jimenez
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+3. Instalar las dependencias:
 
-## Additional Resources
+```bash
+npm install
+```
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+4. Iniciar el servidor de desarrollo:
+
+```bash
+npx ng serve
+```
+
+5. Abrir en el navegador: `http://localhost:4200`
+
+## Usuario de prueba
+
+- **Usuario:** `emilys`
+- **Contraseña:** `emilyspass`
+
+## Funcionalidades
+
+- **Autenticación:** inicio de sesión con `POST /auth/login`. El `accessToken` y los datos básicos del usuario se guardan en `localStorage`. Cierre de sesión que borra esos datos y redirige al login.
+- **Guards:** `authGuard` protege las rutas privadas y `guestGuard` impide volver al login con una sesión activa.
+- **Interceptor:** `jwtInterceptor` agrega `Authorization: Bearer <token>` a las peticiones de forma automática.
+- **Productos:** listado paginado de 10 en 10, búsqueda por nombre, vista de detalle, formulario reactivo de creación y edición en un mismo componente, y eliminación con confirmación.
+- **Perfil:** muestra la información del usuario con `GET /auth/me`, sin enviar el token manualmente.
+- **Navegación:** la ruta raíz redirige a `/products` y cualquier ruta inexistente muestra la página 404.
+
+## Rutas
+
+| Ruta | Descripción | Protegida |
+|---|---|---|
+| `/auth/login` | Inicio de sesión | No (solo invitados) |
+| `/products` | Listado con búsqueda y paginación | Sí |
+| `/products/new` | Crear producto | Sí |
+| `/products/:id` | Detalle de un producto | Sí |
+| `/products/:id/edit` | Editar producto | Sí |
+| `/profile` | Perfil del usuario | Sí |
+| `**` | Página 404 | No |
+
+## Estructura del proyecto
+
+```
+src/app/
+├── core/          (AuthService, guards, interceptor, modelos)
+├── shared/        (navbar, página 404, módulos reexportados)
+└── features/
+    ├── auth/      (login)
+    ├── products/  (listado, detalle, formulario, paginación)
+    └── profile/   (perfil del usuario)
+```
+
+Los módulos `auth`, `products` y `profile` se cargan de forma perezosa (lazy loading).
+
+## Notas
+
+- DummyJSON simula crear, editar y eliminar productos: responde con éxito, pero no guarda los cambios. La aplicación muestra un mensaje de confirmación con la respuesta recibida.
+- El token de sesión dura 30 minutos. Si vence, hay que cerrar sesión e ingresar de nuevo.
