@@ -1,1 +1,30 @@
-<p>product-detail works!</p>
+<section class="product-detail">
+  <a class="btn btn--secondary" routerLink="/products">Volver al listado</a>
+
+  <div class="loading" *ngIf="loading">Cargando producto...</div>
+
+  <div class="message message--error product-detail__message" *ngIf="message">
+    {{ message }}
+  </div>
+
+  <article class="product-detail__card" *ngIf="product">
+    <img class="product-detail__image" [src]="product.thumbnail" [alt]="product.title" />
+
+    <div class="product-detail__info">
+      <h1 class="product-detail__title">{{ product.title }}</h1>
+
+      <p class="product-detail__category">{{ product.category }}</p>
+
+      <p class="product-detail__description">{{ product.description }}</p>
+
+      <p><strong>Marca:</strong> {{ product.brand || 'Sin marca' }}</p>
+      <p><strong>Precio:</strong> {{ product.price | currency }}</p>
+      <p><strong>Stock:</strong> {{ product.stock }} unidades</p>
+      <p><strong>Calificación:</strong> {{ product.rating | number: '1.1-1' }}</p>
+
+      <div class="product-detail__actions">
+        <a class="btn" [routerLink]="['/products', product.id, 'edit']">Editar</a>
+      </div>
+    </div>
+  </article>
+</section>

@@ -1,1 +1,11 @@
-<p>pagination works!</p>
+<div class="pagination">
+  <button class="btn btn--secondary" (click)="onPrevious()" [disabled]="currentPage <= 1">
+    Anterior
+  </button>
+
+  <span class="pagination__info">Página {{ currentPage }} de {{ totalPages }}</span>
+
+  <button class="btn btn--secondary" (click)="onNext()" [disabled]="currentPage >= totalPages">
+    Siguiente
+  </button>
+</div>

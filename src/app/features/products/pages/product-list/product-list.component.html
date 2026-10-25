@@ -1,1 +1,62 @@
-<p>product-list works!</p>
+<section class="product-list">
+  <header class="product-list__header">
+    <h1>Productos</h1>
+    <a class="btn" routerLink="/products/new">Nuevo producto</a>
+  </header>
+
+  <form class="product-list__search" [formGroup]="form" (ngSubmit)="onSearch()">
+    <input formControlName="search" type="text" placeholder="Buscar producto por nombre" />
+    <button class="btn" type="submit">Buscar</button>
+    <button class="btn btn--secondary" type="button" (click)="onClear()">Limpiar</button>
+  </form>
+
+  <div class="message" [class.message--error]="isError" *ngIf="message">
+    {{ message }}
+  </div>
+
+  <div class="loading" *ngIf="loading">Cargando productos...</div>
+
+  <div class="product-list__card" *ngIf="!loading">
+    <table class="product-list__table" *ngIf="products.length > 0; else emptyState">
+      <thead>
+        <tr>
+          <th>Imagen</th>
+          <th>Título</th>
+          <th>Categoría</th>
+          <th>Precio</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let product of products">
+          <td>
+            <img class="product-list__thumb" [src]="product.thumbnail" [alt]="product.title" />
+          </td>
+          <td>{{ product.title }}</td>
+          <td>{{ product.category }}</td>
+          <td>{{ product.price | currency }}</td>
+          <td>
+            <div class="product-list__actions">
+              <a class="btn btn--secondary" [routerLink]="['/products', product.id]">Ver</a>
+              <a class="btn btn--secondary" [routerLink]="['/products', product.id, 'edit']">Editar</a>
+              <button class="btn btn--danger" (click)="onDelete(product)">Eliminar</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <ng-template #emptyState>
+      <p class="product-list__empty">No se encontraron productos.</p>
+    </ng-template>
+  </div>
+
+  <app-pagination
+    *ngIf="!loading && products.length > 0"
+    [currentPage]="currentPage"
+    [totalPages]="totalPages"
+    (previousPage)="onPrevious()"
+    (nextPage)="onNext()"
+  ></app-pagination>
+</section>
