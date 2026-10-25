@@ -1,1 +1,106 @@
-<p>product-form works!</p>
+<section class="product-form">
+  <a class="btn btn--secondary" routerLink="/products">Volver al listado</a>
+
+  <div class="product-form__card">
+    <h2>{{ isEdit ? 'Editar producto' : 'Nuevo producto' }}</h2>
+
+    <div class="message" [class.message--error]="isError" *ngIf="message">
+      {{ message }}
+    </div>
+
+    <div class="loading" *ngIf="loading">Cargando...</div>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="product-form__group">
+        <label for="title">Título</label>
+
+        <input formControlName="title" id="title" type="text" placeholder="Nombre del producto" />
+
+        <small class="error" *ngIf="isInvalid('title', 'required')">
+          El título es obligatorio.
+        </small>
+
+        <small class="error" *ngIf="isInvalid('title', 'minlength')">
+          El título debe tener al menos 3 caracteres.
+        </small>
+      </div>
+
+      <div class="product-form__group">
+        <label for="description">Descripción</label>
+
+        <textarea formControlName="description" id="description" rows="3" placeholder="Describe el producto"></textarea>
+
+        <small class="error" *ngIf="isInvalid('description', 'required')">
+          La descripción es obligatoria.
+        </small>
+
+        <small class="error" *ngIf="isInvalid('description', 'minlength')">
+          La descripción debe tener al menos 10 caracteres.
+        </small>
+      </div>
+
+      <div class="product-form__row">
+        <div class="product-form__group">
+          <label for="price">Precio</label>
+
+          <input formControlName="price" id="price" type="number" step="0.01" placeholder="Ej. 19.99" />
+
+          <small class="error" *ngIf="isInvalid('price', 'required')">
+            El precio es obligatorio.
+          </small>
+
+          <small class="error" *ngIf="isInvalid('price', 'min')">
+            El precio debe ser mayor a 0.
+          </small>
+        </div>
+
+        <div class="product-form__group">
+          <label for="stock">Stock</label>
+
+          <input formControlName="stock" id="stock" type="number" placeholder="Ej. 20" />
+
+          <small class="error" *ngIf="isInvalid('stock', 'required')">
+            El stock es obligatorio.
+          </small>
+
+          <small class="error" *ngIf="isInvalid('stock', 'min')">
+            El stock no puede ser negativo.
+          </small>
+
+          <small class="error" *ngIf="isInvalid('stock', 'pattern')">
+            El stock debe ser un número entero.
+          </small>
+        </div>
+      </div>
+
+      <div class="product-form__group">
+        <label for="category">Categoría</label>
+
+        <select formControlName="category" id="category">
+          <option value="">Selecciona una categoría</option>
+          <option *ngFor="let category of categories" [value]="category">
+            {{ category }}
+          </option>
+        </select>
+
+        <small class="error" *ngIf="isInvalid('category', 'required')">
+          La categoría es obligatoria.
+        </small>
+      </div>
+
+      <div class="product-form__group">
+        <label for="brand">Marca (opcional)</label>
+
+        <input formControlName="brand" id="brand" type="text" placeholder="Ej. Apple" />
+
+        <small class="error" *ngIf="isInvalid('brand', 'maxlength')">
+          La marca no puede tener más de 50 caracteres.
+        </small>
+      </div>
+
+      <button class="btn product-form__button" type="submit" [disabled]="form.invalid || loading">
+        {{ isEdit ? 'Guardar cambios' : 'Crear producto' }}
+      </button>
+    </form>
+  </div>
+</section>

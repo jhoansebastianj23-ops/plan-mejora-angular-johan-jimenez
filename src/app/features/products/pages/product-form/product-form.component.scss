@@ -1,0 +1,67 @@
+.product-form {
+  &__card {
+    max-width: 640px;
+    margin: 1.5rem auto 0;
+    padding: 2rem;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+
+    h2 {
+      margin-bottom: 1.2rem;
+      color: #1e293b;
+    }
+  }
+
+  &__row {
+    display: flex;
+    gap: 1rem;
+
+    .product-form__group {
+      flex: 1;
+    }
+  }
+
+  &__group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-bottom: 1rem;
+
+    label {
+      font-weight: 600;
+      color: #1e293b;
+    }
+
+    input,
+    textarea,
+    select {
+      padding: 0.75rem 1rem;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 1rem;
+      color: #1e293b;
+
+      &:focus {
+        outline: none;
+        border-color: #2563eb;
+      }
+    }
+  }
+
+  &__button {
+    width: 100%;
+    margin-top: 0.5rem;
+    padding: 0.8rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .product-form {
+    &__row {
+      flex-direction: column;
+      gap: 0;
+    }
+  }
+}
