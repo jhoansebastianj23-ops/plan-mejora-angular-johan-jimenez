@@ -1,1 +1,34 @@
-<p>profile works!</p>
+<section class="profile">
+  <h1 class="profile__title">Mi perfil</h1>
+
+  <div class="loading" *ngIf="loading">Cargando perfil...</div>
+
+  <div class="message message--error" *ngIf="message">
+    {{ message }}
+  </div>
+
+  <article class="profile__card" *ngIf="profile">
+    <div class="profile__header">
+      <img class="profile__image" [src]="profile.image" [alt]="profile.username" />
+
+      <div>
+        <h2 class="profile__name">{{ profile.firstName }} {{ profile.lastName }}</h2>
+        <p class="profile__username">{{ '@' + profile.username }}</p>
+        <span class="profile__role">{{ profile.role | titlecase }}</span>
+      </div>
+    </div>
+
+    <div class="profile__grid">
+      <p><strong>Correo:</strong> {{ profile.email }}</p>
+      <p><strong>Teléfono:</strong> {{ profile.phone }}</p>
+      <p><strong>Edad:</strong> {{ profile.age }} años</p>
+      <p><strong>Género:</strong> {{ profile.gender | titlecase }}</p>
+      <p><strong>Nacimiento:</strong> {{ profile.birthDate | date: 'd/M/yyyy' }}</p>
+      <p><strong>Universidad:</strong> {{ profile.university }}</p>
+      <p><strong>Ciudad:</strong> {{ profile.address.city }}, {{ profile.address.country }}</p>
+      <p><strong>Dirección:</strong> {{ profile.address.address }}</p>
+      <p><strong>Empresa:</strong> {{ profile.company.name }}</p>
+      <p><strong>Cargo:</strong> {{ profile.company.title }}</p>
+    </div>
+  </article>
+</section>
