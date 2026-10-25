@@ -1,0 +1,62 @@
+.login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+
+  &__card {
+    width: 100%;
+    max-width: 400px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 2rem;
+  }
+
+  &__title {
+    margin-bottom: 0.3rem;
+    color: #1e293b;
+  }
+
+  &__subtitle {
+    margin-bottom: 1.5rem;
+    color: #64748b;
+  }
+
+  &__group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-bottom: 1rem;
+
+    label {
+      font-weight: 600;
+      color: #1e293b;
+    }
+
+    input {
+      padding: 0.75rem 1rem;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 1rem;
+
+      &:focus {
+        outline: none;
+        border-color: #2563eb;
+      }
+    }
+  }
+
+  &__button {
+    width: 100%;
+    margin-top: 0.5rem;
+    padding: 0.8rem;
+  }
+
+  &__hint {
+    margin-top: 1.2rem;
+    text-align: center;
+    font-size: 0.85rem;
+    color: #64748b;
+  }
+}

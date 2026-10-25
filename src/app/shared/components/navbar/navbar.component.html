@@ -1,1 +1,17 @@
-<p>navbar works!</p>
+<nav class="navbar">
+  <a class="navbar__brand" routerLink="/products">Tienda</a>
+
+  <div class="navbar__links">
+    <a class="navbar__link" routerLink="/products" routerLinkActive="navbar__link--active">
+      Productos
+    </a>
+    <a class="navbar__link" routerLink="/profile" routerLinkActive="navbar__link--active">
+      Perfil
+    </a>
+  </div>
+
+  <div class="navbar__user">
+    <span class="navbar__name">{{ userName }}</span>
+    <button class="navbar__button" (click)="onLogout()">Cerrar sesión</button>
+  </div>
+</nav>

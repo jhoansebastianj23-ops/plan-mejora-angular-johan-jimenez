@@ -1,0 +1,30 @@
+.not-found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 4rem 1rem;
+  text-align: center;
+
+  &__code {
+    font-size: 5rem;
+    color: #2563eb;
+  }
+
+  &__text {
+    color: #64748b;
+  }
+
+  &__link {
+    padding: 0.7rem 1.2rem;
+    border-radius: 8px;
+    background: #2563eb;
+    color: #ffffff;
+    font-weight: 600;
+    text-decoration: none;
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+}
