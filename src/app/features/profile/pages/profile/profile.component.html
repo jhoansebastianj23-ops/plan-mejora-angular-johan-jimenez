@@ -22,7 +22,14 @@
       <p><strong>Correo:</strong> {{ profile.email }}</p>
       <p><strong>Teléfono:</strong> {{ profile.phone }}</p>
       <p><strong>Edad:</strong> {{ profile.age }} años</p>
-      <p><strong>Género:</strong> {{ profile.gender | titlecase }}</p>
+      <p>
+  <strong>Género:</strong>
+  <span [ngSwitch]="profile.gender">
+    <span *ngSwitchCase="'female'">Femenino</span>
+    <span *ngSwitchCase="'male'">Masculino</span>
+    <span *ngSwitchDefault>{{ profile.gender | titlecase }}</span>
+  </span>
+</p>
       <p><strong>Nacimiento:</strong> {{ profile.birthDate | date: 'd/M/yyyy' }}</p>
       <p><strong>Universidad:</strong> {{ profile.university }}</p>
       <p><strong>Ciudad:</strong> {{ profile.address.city }}, {{ profile.address.country }}</p>
